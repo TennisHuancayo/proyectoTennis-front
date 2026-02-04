@@ -1,0 +1,225 @@
+<p>login.component works!</p>
+<div class="flex min-h-screen">
+  <!-- Left Side - Image & Branding -->
+  <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-primary via-primary-dark to-secondary">
+    <!-- Background Image -->
+    <div class="absolute inset-0 opacity-30">
+      <img
+        src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=1200&h=1600&fit=crop"
+        alt="Tennis Court"
+        class="w-full h-full object-cover grayscale-[20%]"
+      >
+    </div>
+
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-primary/85 via-primary-dark/90 to-secondary/95"></div>
+
+    <!-- Decorative Circles -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute -top-24 -right-12 w-72 h-72 bg-accent/10 rounded-full animate-float"></div>
+      <div class="absolute -bottom-12 -left-8 w-48 h-48 bg-accent/10 rounded-full animate-float-delayed"></div>
+      <div class="absolute top-1/2 left-1/4 w-36 h-36 bg-accent/10 rounded-full animate-float-slow"></div>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 flex flex-col items-center justify-center px-12 py-16 text-white w-full">
+      <!-- Logo Section -->
+      <div class="text-center mb-10 animate-fade-in-up">
+        <div class="w-20 h-20 lg:w-24 lg:h-24 bg-white/15 backdrop-blur-md rounded-3xl flex items-center justify-center mx-auto mb-6 border-2 border-white/20 shadow-2xl">
+          <i class="fa-solid fa-trophy text-accent text-4xl lg:text-5xl"></i>
+        </div>
+        <h1 class="text-3xl lg:text-4xl font-extrabold mb-3 tracking-tight">Romina Cutipa</h1>
+        <p class="text-lg text-white/80 font-medium">Tennis Academy</p>
+      </div>
+
+      <!-- Welcome Text -->
+      <div class="text-center max-w-md animate-fade-in-up animation-delay-200">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-4 leading-tight">Sistema de Administración</h2>
+        <p class="text-lg text-white/85 leading-relaxed">
+          Gestiona reservas, clases y canchas desde un solo lugar. Acceso exclusivo para administradores.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side - Login Form -->
+  <div class="flex-1 flex items-center justify-center px-6 py-12 lg:px-16 bg-white relative overflow-hidden">
+    <!-- Background Decoration -->
+    <div class="absolute -top-24 -right-24 w-96 h-96 bg-gradient-to-br from-primary/5 to-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Form Container -->
+    <div class="w-full max-w-md relative z-10 animate-fade-in-up animation-delay-300">
+      <!-- Form Header -->
+      <div class="text-center mb-12">
+        <!-- Mobile Logo (visible only on mobile) -->
+        <div class="lg:hidden mb-8">
+          <div class="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i class="fa-solid fa-trophy text-primary text-3xl"></i>
+          </div>
+          <h2 class="text-2xl font-extrabold text-secondary mb-1">Romina Cutipa</h2>
+          <p class="text-sm text-gray-600 font-medium">Tennis Academy</p>
+        </div>
+
+        <!-- Admin Badge -->
+        <div class="flex justify-center mb-6">
+          <div class="inline-flex items-center gap-2 bg-gradient-to-r from-primary to-primary-light text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg shadow-primary/20">
+            <i class="fa-solid fa-shield-halved text-sm"></i>
+            <span>Acceso Administrativo</span>
+          </div>
+        </div>
+
+        <h1 class="text-3xl lg:text-4xl font-extrabold text-secondary mb-3 tracking-tight">Iniciar Sesión</h1>
+        <p class="text-base text-gray-600 font-medium">Ingresa tus credenciales para continuar</p>
+      </div>
+
+      <!-- Error Message -->
+      <div
+        *ngIf="errorMessage"
+        class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-lg animate-shake"
+      >
+        <div class="flex items-start">
+          <i class="fa-solid fa-circle-exclamation text-red-500 mt-0.5 mr-3"></i>
+          <p class="text-sm text-red-700 font-medium">{{ errorMessage }}</p>
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Email Field -->
+        <div>
+          <label for="email" class="block text-sm font-bold text-secondary mb-2 tracking-wide">
+            Correo Electrónico
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <i class="fa-solid fa-envelope text-gray-400 text-lg transition-colors"
+                 [class.text-primary]="email?.valid && email?.touched"></i>
+            </div>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="admin@tennisacademy.com"
+              autocomplete="email"
+              class="w-full pl-12 pr-4 py-4 border-2 rounded-xl text-base font-medium text-secondary placeholder-gray-400 transition-all duration-300 outline-none
+                     focus:border-primary focus:ring-4 focus:ring-primary/10 focus:bg-gray-50
+                     hover:border-gray-400"
+              [class.border-red-500]="email?.invalid && email?.touched"
+              [class.border-gray-300]="!email?.touched || email?.valid"
+            >
+          </div>
+          <div *ngIf="email?.invalid && email?.touched" class="mt-2">
+            <p *ngIf="email?.errors?.['required']" class="text-sm text-red-600 font-medium">
+              <i class="fa-solid fa-circle-info mr-1"></i>El correo es requerido
+            </p>
+            <p *ngIf="email?.errors?.['email']" class="text-sm text-red-600 font-medium">
+              <i class="fa-solid fa-circle-info mr-1"></i>Ingresa un correo válido
+            </p>
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <label for="password" class="block text-sm font-bold text-secondary mb-2 tracking-wide">
+            Contraseña
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <i class="fa-solid fa-lock text-gray-400 text-lg transition-colors"
+                 [class.text-primary]="password?.valid && password?.touched"></i>
+            </div>
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              class="w-full pl-12 pr-12 py-4 border-2 rounded-xl text-base font-medium text-secondary placeholder-gray-400 transition-all duration-300 outline-none
+                     focus:border-primary focus:ring-4 focus:ring-primary/10 focus:bg-gray-50
+                     hover:border-gray-400"
+              [class.border-red-500]="password?.invalid && password?.touched"
+              [class.border-gray-300]="!password?.touched || password?.valid"
+            >
+            <button
+              type="button"
+              (click)="togglePasswordVisibility()"
+              class="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-primary transition-colors"
+            >
+              <i [class]="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'" class="text-lg"></i>
+            </button>
+          </div>
+          <div *ngIf="password?.invalid && password?.touched" class="mt-2">
+            <p *ngIf="password?.errors?.['required']" class="text-sm text-red-600 font-medium">
+              <i class="fa-solid fa-circle-info mr-1"></i>La contraseña es requerida
+            </p>
+            <p *ngIf="password?.errors?.['minlength']" class="text-sm text-red-600 font-medium">
+              <i class="fa-solid fa-circle-info mr-1"></i>La contraseña debe tener al menos 6 caracteres
+            </p>
+          </div>
+        </div>
+
+        <!-- Remember & Forgot Password -->
+        <div class="flex items-center justify-between">
+          <label class="flex items-center gap-2 cursor-pointer group">
+            <input
+              type="checkbox"
+              formControlName="remember"
+              class="w-4 h-4 rounded border-gray-300 text-primary focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all"
+            >
+            <span class="text-sm font-medium text-gray-600 group-hover:text-secondary transition-colors">
+              Recordarme
+            </span>
+          </label>
+          <a
+            href="#"
+            class="text-sm font-semibold text-primary hover:text-primary-dark hover:underline transition-colors"
+          >
+            ¿Olvidaste tu contraseña?
+          </a>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          [disabled]="isLoading"
+          class="w-full py-4 px-6 bg-gradient-to-r from-accent to-accent-hover rounded-xl text-secondary text-base font-extrabold tracking-wide shadow-lg shadow-accent/30 transition-all duration-300 hover:shadow-xl hover:shadow-accent/40 hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+        >
+          <span *ngIf="!isLoading" class="flex items-center justify-center gap-2">
+            Acceder al Panel
+            <i class="fa-solid fa-arrow-right text-sm"></i>
+          </span>
+          <span *ngIf="isLoading" class="flex items-center justify-center gap-2">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Iniciando sesión...
+          </span>
+        </button>
+
+        <!-- Security Notice -->
+        <div class="mt-6 p-4 bg-gradient-to-r from-primary/5 to-accent/5 rounded-xl border-l-4 border-primary">
+          <p class="text-sm text-gray-600 leading-relaxed">
+            <i class="fa-solid fa-info-circle text-primary mr-2"></i>
+            <span class="font-semibold">Nota de seguridad:</span> Este panel es exclusivo para personal autorizado. Todos los accesos quedan registrados.
+          </p>
+        </div>
+      </form>
+
+      <!-- Divider -->
+      <div class="flex items-center gap-4 my-8">
+        <div class="flex-1 h-px bg-gray-300"></div>
+        <span class="text-sm font-semibold text-gray-400 uppercase tracking-wider">o</span>
+        <div class="flex-1 h-px bg-gray-300"></div>
+      </div>
+
+      <!-- Back to Site -->
+      <div class="text-center">
+        <a
+          routerLink="/"
+          class="inline-flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-primary hover:bg-primary/5 px-4 py-2 rounded-lg transition-all duration-300"
+        >
+          <i class="fa-solid fa-arrow-left text-xs"></i>
+          Volver al sitio web
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
