@@ -137,6 +137,7 @@ export const attendanceService = {
         const record: Attendance = {
             id: Math.random().toString(36).substr(2, 9),
             studentId,
+            classId: 'mock-class-id',
             date: new Date().toISOString(),
             status
         };
