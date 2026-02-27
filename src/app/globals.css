@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-romina-navy: #0a192f;
+  --color-romina-green: #ccff00;
+  --color-romina-white: #ffffff;
+  
+  --font-sans: var(--font-inter);
+}
+
+:root {
+  --background: #0a192f;
+  --foreground: #ffffff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+}
