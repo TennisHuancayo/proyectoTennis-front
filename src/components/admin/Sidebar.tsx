@@ -14,6 +14,8 @@ const navigation = [
     { name: "Asistencia", href: "/admin/attendance", icon: CalendarCheck },
     { name: "Eventos", href: "/admin/eventos", icon: Newspaper },
     { name: "Configuración", href: "/admin/settings", icon: Settings },
+    { name: "Sponsors", href: "/admin/sponsors", icon: Users },
+    { name: "Ventas", href: "/admin/sales", icon: Users },
 ];
 
 export function Sidebar() {
