@@ -27,6 +27,7 @@ export function CourtReservation() {
                             href="https://wa.me/51999999999?text=Hola%20Romina,%20quisiera%20reservar%20una%20cancha."
                             target="_blank"
                             rel="noopener noreferrer"
+                            className="flex"
                         >
                             <MessageCircle className="mr-2 h-6 w-6" />
                             Reservar por WhatsApp
